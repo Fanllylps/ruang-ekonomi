@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#17343a">
+<meta name="description" content="Ruang belajar Pengantar Ekonomi untuk persiapan UTS: materi, kurva interaktif, kalkulator rumus, dan latihan. ">
+<title>Ruang Ekonomi — Belajar untuk UTS</title>
+<style>
+:root{
+  --paper:#f3f1eb;--surface:#fffefa;--surface-2:#e9eee9;--ink:#1d3034;--muted:#687779;
+  --line:#dedfd7;--teal:#286e67;--teal-dark:#17343a;--teal-soft:#dcebe5;
+  --orange:#d48151;--orange-soft:#f6e6d9;--blue:#477e9d;--blue-soft:#e4eef3;
+  --good:#347b59;--bad:#b35b49;--radius:18px;--shadow:0 10px 28px rgba(25,49,52,.055);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:108px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+button,input{font:inherit}
+button{cursor:pointer}
+a{color:inherit}
+.wrap{width:min(100% - 32px,1060px);margin-inline:auto}
+.topbar{background:var(--teal-dark);color:#f8f6ef;padding:17px 0 15px}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:750;letter-spacing:.02em}
+.brand-mark{display:grid;place-items:center;width:34px;height:34px;border:1px solid rgba(255,255,255,.28);border-radius:11px;color:#f1c59e;font-family:Georgia,serif;font-size:20px}
+.brand small{display:block;font-weight:500;color:#b9c8c5;font-size:10px;letter-spacing:.13em;text-transform:uppercase}
+.top-tag{font-size:11px;color:#f3d8c5;border:1px solid rgba(243,216,197,.38);padding:6px 9px;border-radius:999px;white-space:nowrap}
+.hero{background:var(--teal-dark);color:#f8f6ef;padding:25px 0 35px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:240px;height:240px;border:1px solid rgba(255,255,255,.12);border-radius:50%;right:-90px;top:-100px;box-shadow:0 0 0 25px rgba(255,255,255,.025),0 0 0 55px rgba(255,255,255,.02)}
+.hero-inner{position:relative;z-index:1;max-width:760px}
+.kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#a9c5bd;font-weight:700}
+h1,h2,h3,p{margin-top:0}
+h1{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(34px,7vw,56px);line-height:1.04;letter-spacing:-.035em;margin:11px 0 13px;max-width:680px}
+.hero p{color:#d3ded9;font-size:15px;max-width:600px;margin-bottom:22px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px}
+.meta-chip{border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:7px 10px;font-size:11px;color:#e2e9e5;background:rgba(255,255,255,.045)}
+.nav-shell{position:sticky;top:0;z-index:20;background:rgba(243,241,235,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;overflow:auto;gap:5px;padding:9px 0;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{white-space:nowrap;text-decoration:none;font-size:12px;color:var(--muted);padding:9px 12px;border-radius:9px;transition:.2s}
+.nav a:hover,.nav a.active{background:var(--teal-dark);color:white}
+main{padding:26px 0 100px}
+.intro-row{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:0 0 20px}
+.intro-row h2{font-family:Georgia,serif;font-size:25px;font-weight:500;margin:0 0 4px;letter-spacing:-.02em}
+.intro-row p{color:var(--muted);font-size:13px;margin:0}
+.progress-box{min-width:130px;text-align:right}
+.progress-box small{font-size:10px;color:var(--muted)}
+.progress-track{height:6px;background:#dfe3dc;border-radius:99px;overflow:hidden;margin-top:6px}
+.progress-fill{height:100%;width:0;background:var(--teal);transition:width .3s}
+.section{margin:38px 0;scroll-margin-top:105px}
+.section-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:17px}
+.section-no{flex:none;width:34px;height:34px;display:grid;place-items:center;background:var(--teal-soft);color:var(--teal-dark);font-size:12px;font-weight:800;border-radius:10px}
+.section-head h2{font-family:Georgia,serif;font-size:26px;font-weight:500;letter-spacing:-.025em;margin:0 0 4px;line-height:1.15}
+.section-head p{font-size:13px;color:var(--muted);margin:0}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);min-width:0}
+.span-12{grid-column:span 12}.span-8{grid-column:span 8}.span-7{grid-column:span 7}.span-6{grid-column:span 6}.span-5{grid-column:span 5}.span-4{grid-column:span 4}
+.card h3{font-size:16px;margin:0 0 8px;letter-spacing:-.01em}
+.card p{font-size:13px;color:var(--muted);margin:0 0 10px}
+.label{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--teal);font-weight:800;margin-bottom:7px;display:block}
+.lead{font-family:Georgia,serif;font-size:21px;line-height:1.27;color:var(--ink);margin:4px 0 10px}
+.note{padding:12px 13px;border-radius:12px;background:var(--surface-2);font-size:12px;color:#415456;margin-top:12px}
+.note strong{color:var(--ink)}
+.note.orange{background:var(--orange-soft)}
+.note.blue{background:var(--blue-soft)}
+.note.green{background:var(--teal-soft)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mini{padding:13px;border:1px solid var(--line);border-radius:13px;background:#fff}
+.mini h4{font-size:12px;margin:0 0 4px}.mini p{font-size:12px;margin:0}
+.keyline{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:8px 0;font-size:12px}.keyline:last-child{border-bottom:0}.keyline b{color:var(--ink);text-align:right}
+.steps{counter-reset:step;display:grid;gap:10px}
+.step{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.step:before{counter-increment:step;content:counter(step);width:25px;height:25px;border-radius:8px;background:var(--teal-soft);color:var(--teal-dark);font-size:11px;font-weight:800;display:grid;place-items:center}
+.step b{display:block;font-size:13px;margin:1px 0 2px}.step p{font-size:12px;margin:0}
+.formula{background:#f0f3ee;border:1px solid #e0e6df;border-radius:11px;padding:11px 12px;font-family:Georgia,serif;font-size:17px;line-height:1.35;color:#1f4443;margin:10px 0}
+.formula small{font-family:Inter,system-ui,sans-serif;font-size:10px;color:var(--muted);display:block;margin-top:4px}
+.formula-list{display:grid;gap:7px}.formula-list .formula{margin:0}
+.table-wrap{overflow-x:auto;margin-top:8px}table{width:100%;border-collapse:collapse;font-size:11px;min-width:420px}th{text-align:left;color:#536668;background:#edf1ec;font-weight:750}th,td{padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}td{color:#435457}tr:last-child td{border-bottom:0}
+.controls{display:grid;gap:12px;margin-top:12px}.control label{font-size:12px;font-weight:700;display:flex;justify-content:space-between;gap:12px;margin-bottom:6px}.control output{font-variant-numeric:tabular-nums;color:var(--teal)}input[type=range]{width:100%;accent-color:var(--teal)}
+.input-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.field label{display:block;font-size:11px;color:var(--muted);font-weight:650;margin-bottom:5px}.field input{width:100%;border:1px solid var(--line);background:#fff;border-radius:9px;padding:10px 11px;color:var(--ink);font-size:14px;outline:none}.field input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(40,110,103,.12)}
+.btn{border:0;background:var(--teal-dark);color:#fff;border-radius:10px;padding:10px 14px;font-size:12px;font-weight:750;transition:transform .15s,background .15s}.btn:active{transform:scale(.98)}.btn.secondary{background:#e9eee9;color:var(--teal-dark)}.btn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:13px}.result{padding:11px;border-radius:11px;background:#f1f4ef;border:1px solid #e1e7df}.result small{display:block;color:var(--muted);font-size:10px}.result strong{display:block;font-size:18px;letter-spacing:-.02em;margin-top:2px;font-variant-numeric:tabular-nums}
+.graph-frame{border:1px solid var(--line);border-radius:14px;background:#fcfcf8;padding:8px;margin:12px 0 8px;overflow:hidden}svg{width:100%;height:auto;display:block}.graph-caption{display:flex;flex-wrap:wrap;gap:12px;font-size:10px;color:var(--muted);margin:5px 2px}.legend{display:inline-flex;align-items:center;gap:5px}.dot{width:8px;height:8px;border-radius:50%;display:inline-block}.dot.d{background:var(--blue)}.dot.s{background:var(--orange)}.dot.e{background:var(--teal-dark)}
+.segmented{display:inline-flex;padding:3px;background:#edf1ec;border-radius:10px;gap:3px}.seg-btn{border:0;background:transparent;padding:7px 10px;border-radius:8px;font-size:11px;color:var(--muted);font-weight:700}.seg-btn.active{background:#fff;color:var(--teal-dark);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.callout-title{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:800;margin:0 0 7px}
+.badge{display:inline-block;font-size:10px;padding:4px 7px;border-radius:6px;font-weight:800;background:#e8eee9;color:#37665a}.badge.orange{background:var(--orange-soft);color:#9a5935}.badge.blue{background:var(--blue-soft);color:#3e6d86}
+.case-box{border-left:3px solid var(--orange);padding:2px 0 2px 13px;margin-top:12px}.case-box p{margin:4px 0;font-size:12px}
+.accordion{border-top:1px solid var(--line)}.acc-item{border-bottom:1px solid var(--line)}.acc-btn{width:100%;display:flex;justify-content:space-between;align-items:center;text-align:left;padding:12px 0;background:none;border:0;font-size:13px;font-weight:750;color:var(--ink)}.acc-btn span:last-child{color:var(--teal);font-size:18px}.acc-content{display:none;padding:0 0 13px}.acc-content.open{display:block}.acc-content p{margin:0;font-size:12px}
+.quiz-question{font-size:15px;font-weight:750;line-height:1.35;margin:5px 0 13px}.choices{display:grid;gap:8px}.choice{background:#fff;border:1px solid var(--line);padding:11px 12px;border-radius:10px;text-align:left;color:var(--ink);font-size:12px}.choice:hover{border-color:#8caf9f}.choice.correct{border-color:#74a98c;background:#e8f3eb}.choice.wrong{border-color:#d18a78;background:#f9ece8}.feedback{font-size:12px;margin-top:10px;padding:11px;border-radius:10px;display:none}.feedback.show{display:block}.feedback.good{background:#e8f3eb;color:#2f6847}.feedback.no{background:#f9ece8;color:#8e493c}
+.quiz-footer{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:10px}.quiz-footer small{color:var(--muted);font-size:11px}
+.footer{background:var(--teal-dark);color:#e9efeb;padding:25px 0 32px;margin-top:35px}.footer p{font-size:11px;color:#b7c6c0;margin:5px 0}.footer strong{color:#fff}
+.smallprint{font-size:10px;color:var(--muted)}
+.mobile-dock{display:none}
+@media(max-width:760px){
+ .wrap{width:min(100% - 26px,600px)}.hero{padding:22px 0 27px}.hero p{font-size:13px}.topbar{padding:13px 0}.top-tag{font-size:10px}.nav{padding:7px 0}.nav a{font-size:11px;padding:8px 10px}main{padding-top:20px}.intro-row{align-items:center}.intro-row h2{font-size:22px}.progress-box{min-width:105px}.section{margin:31px 0}.section-head h2{font-size:23px}.card{padding:15px;border-radius:15px}.span-8,.span-7,.span-6,.span-5,.span-4{grid-column:span 12}.two-col{grid-template-columns:1fr 1fr}.mobile-dock{display:flex;position:fixed;z-index:30;bottom:0;left:0;right:0;padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:rgba(255,254,250,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);justify-content:space-around}.mobile-dock a{text-decoration:none;color:var(--muted);font-size:10px;text-align:center;min-width:56px}.mobile-dock a span{display:block;font-size:17px;line-height:1.3;color:var(--teal-dark)}
+}
+@media(max-width:390px){.wrap{width:calc(100% - 22px)}.two-col{grid-template-columns:1fr}.input-grid{gap:8px}.field input{padding:9px}.result strong{font-size:16px}.meta-chip{font-size:10px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topline">
+    <div class="brand"><div class="brand-mark">R</div><div>RUANG EKONOMI<small>catatan belajar mandiri</small></div></div>
+    <div class="top-tag">MODUL UTS · MATERI 1–7</div>
+  </div>
+</header>
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="kicker">Pengantar Ekonomi · Persiapan UTS</div>
+    <h1>Pahami alurnya.<br>Baru hitung angkanya.</h1>
+    <p>Belajar ekonomi lewat contoh sehari-hari, kurva yang bisa dimainkan, rumus yang dijelaskan langkah demi langkah, dan latihan soal dengan pembahasan.</p>
+    <div class="hero-meta"><span class="meta-chip">01 · Konsep dasar</span><span class="meta-chip">02 · Permintaan & penawaran</span><span class="meta-chip">03 · Hitungan UTS</span><span class="meta-chip">Dibuat nyaman untuk HP</span></div>
+  </div>
+</section>
+<div class="nav-shell">
+  <nav class="wrap nav" aria-label="Navigasi materi">
+    <a href="#peta" class="active">Mulai</a><a href="#dasar">Konsep dasar</a><a href="#pasar">Pasar</a><a href="#elastisitas">Elastisitas</a><a href="#konsumen">Konsumen</a><a href="#produksi">Produksi & biaya</a><a href="#latihan">Latihan</a>
+  </nav>
+</div>
+<main class="wrap">
+  <section id="peta">
+    <div class="intro-row"><div><h2>Rute belajar Anda</h2><p>Ikuti urutannya. Setiap materi punya contoh dan cara mengerjakan.</p></div><div class="progress-box"><small id="progressText">0 dari 6 topik dibuka</small><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></div></div>
+    <div class="grid">
+      <article class="card span-4"><span class="label">Bagian 01 · Pertemuan 1–2</span><h3>Fondasi ekonomi</h3><p>Kelangkaan, pilihan, biaya peluang, ekonomi mikro dan makro, serta dynamic pricing.</p><a class="badge" href="#dasar">Mulai belajar ↗</a></article>
+      <article class="card span-4"><span class="label">Bagian 02 · Pertemuan 3 & 5</span><h3>Permintaan, penawaran, pasar</h3><p>Hukum, faktor penggeser kurva, titik keseimbangan, dan surplus.</p><a class="badge" href="#pasar">Mulai belajar ↗</a></article>
+      <article class="card span-4"><span class="label">Bagian 03 · Pertemuan 4</span><h3>Elastisitas</h3><p>Hitung respons perubahan jumlah terhadap perubahan harga.</p><a class="badge" href="#elastisitas">Mulai belajar ↗</a></article>
+      <article class="card span-4"><span class="label">Bagian 04 · Pertemuan 6</span><h3>Perilaku konsumen</h3><p>Faktor keputusan, utilitas, kurva indiferen, dan garis anggaran.</p><a class="badge" href="#konsumen">Mulai belajar ↗</a></article>
+      <article class="card span-4"><span class="label">Bagian 05 · Pertemuan 7</span><h3>Produksi & biaya</h3><p>Input-output, produktivitas, biaya tetap, variabel, rata-rata, marginal, dan BEP.</p><a class="badge" href="#produksi">Mulai belajar ↗</a></article>
+      <article class="card span-4"><span class="label">Bagian 06 · Uji pemahaman</span><h3>Latihan campuran</h3><p>Cek pemahaman dari konsep sampai perhitungan.</p><a class="badge" href="#latihan">Kerjakan soal ↗</a></article>
+    </div>
+  </section>
+
+  <section class="section" id="dasar" data-topic="1">
+    <div class="section-head"><div class="section-no">01</div><div><h2>Fondasi: kelangkaan dan pilihan</h2><p>Pertemuan 1–2 · Memahami alasan ilmu ekonomi dibutuhkan.</p></div></div>
+    <div class="grid">
+      <article class="card span-7">
+        <span class="label">Konsep inti</span><div class="lead">Ekonomi adalah ilmu tentang cara memilih saat sumber daya terbatas.</div>
+        <p>Kebutuhan manusia banyak, tetapi uang, waktu, tenaga, dan bahan baku terbatas. Karena itu, kita harus menentukan prioritas. Inilah inti dari ilmu ekonomi.</p>
+        <div class="two-col">
+          <div class="mini"><h4>Kelangkaan · Scarcity</h4><p>Sumber daya tidak cukup untuk memenuhi semua keinginan. Contoh: uang bulanan terbatas atau stok beras saat gagal panen.</p></div>
+          <div class="mini"><h4>Barang langka · Rare</h4><p>Sesuatu yang jarang ditemukan, tetapi tidak selalu berkaitan dengan keterbatasan untuk memenuhi kebutuhan. Contoh: gerhana matahari.</p></div>
+        </div>
+        <div class="note green"><strong>Ingat:</strong> kelangkaan bukan berarti barangnya tidak ada sama sekali. Artinya jumlah sumber daya tidak cukup untuk semua pilihan yang diinginkan.</div>
+      </article>
+      <article class="card span-5">
+        <span class="label">Empat prinsip ekonomi</span>
+        <div class="steps">
+          <div class="step"><div><b>Trade-off</b><p>Mendapatkan satu hal berarti merelakan hal lain.</p></div></div>
+          <div class="step"><div><b>Opportunity cost</b><p>Nilai alternatif terbaik yang dikorbankan.</p></div></div>
+          <div class="step"><div><b>Berpikir marginal</b><p>Bandingkan manfaat tambahan dengan biaya tambahan.</p></div></div>
+          <div class="step"><div><b>Merespons insentif</b><p>Keputusan berubah ketika ada hadiah, keuntungan, atau konsekuensi.</p></div></div>
+        </div>
+      </article>
+      <article class="card span-6">
+        <span class="label">Contoh kasus · Startup Zhafira</span><h3>Mencari biaya peluang</h3>
+        <p>Zhafira hanya punya anggaran pemasaran Rp20 juta. Ia memilih iklan Instagram dan TikTok. Pilihan lain adalah influencer dengan potensi omzet Rp40 juta atau SEO dengan potensi omzet Rp35 juta.</p>
+        <div class="keyline"><span>Alternatif yang dipilih</span><b>Iklan berbayar</b></div><div class="keyline"><span>Alternatif terbaik yang dilepas</span><b>Influencer · Rp40 juta</b></div>
+        <div class="formula">Biaya peluang = nilai alternatif terbaik yang ditinggalkan</div>
+        <div class="note orange"><strong>Jawaban:</strong> Rp40 juta, bukan Rp35 juta. Ambil nilai dari pilihan terbaik yang tidak dipilih, bukan menjumlahkan semua pilihan.</div>
+      </article>
+      <article class="card span-6">
+        <span class="label">Konsep pertemuan 2</span><h3>Mikro, makro, dan tiga pertanyaan ekonomi</h3>
+        <div class="two-col">
+          <div class="mini"><h4>Ekonomi mikro</h4><p>Keputusan individu, rumah tangga, dan perusahaan. Contoh: mengapa harga kopi di sebuah kedai naik?</p></div>
+          <div class="mini"><h4>Ekonomi makro</h4><p>Perekonomian secara keseluruhan. Contoh: inflasi, pengangguran, PDB, dan pertumbuhan ekonomi.</p></div>
+        </div>
+        <div class="keyline"><span><b>WHAT</b></span><span>Apa yang diproduksi?</span></div><div class="keyline"><span><b>HOW</b></span><span>Bagaimana memproduksinya?</span></div><div class="keyline"><span><b>FOR WHOM</b></span><span>Untuk siapa diproduksi?</span></div>
+      </article>
+      <article class="card span-12">
+        <span class="label">Dynamic pricing · Contoh hotel</span><h3>Kenapa tarif kamar dapat berubah?</h3>
+        <p>Dynamic pricing mengubah harga mengikuti kondisi pasar, seperti permintaan dan penawaran, harga pesaing, persediaan, dan waktu. Hotel dalam materi memiliki 100 kamar.</p>
+        <div class="table-wrap"><table><thead><tr><th>Sisa kamar</th><th>Kondisi</th><th>Tarif</th></tr></thead><tbody><tr><td>Lebih dari 60%</td><td>Permintaan rendah</td><td>Rp500.000</td></tr><tr><td>20%–60%</td><td>Permintaan sedang</td><td>Rp750.000</td></tr><tr><td>Kurang dari 20%</td><td>Permintaan tinggi</td><td>Rp1.200.000</td></tr></tbody></table></div>
+        <div class="note">Contoh: sisa 15 kamar dari 100 berarti okupansi sudah tinggi dan sisa kamar 15%. Tarif masuk kategori tinggi, yaitu Rp1.200.000.</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="pasar" data-topic="2">
+    <div class="section-head"><div class="section-no">02</div><div><h2>Permintaan, penawaran, dan keseimbangan</h2><p>Pertemuan 3 & 5 · Kenali arah kurva sebelum menghitung.</p></div></div>
+    <div class="grid">
+      <article class="card span-6">
+        <span class="label">Demand · Permintaan</span><h3>Hukum permintaan</h3><div class="lead">Harga naik → jumlah diminta turun.</div>
+        <p>Permintaan adalah jumlah barang atau jasa yang ingin <b>dan mampu</b> dibeli konsumen pada berbagai tingkat harga dalam periode tertentu.</p>
+        <div class="formula">P ↑ → Qd ↓<small>Hubungan berlawanan arah · kurva menurun dari kiri atas ke kanan bawah.</small></div>
+        <div class="callout-title">7 faktor yang memengaruhi permintaan</div>
+        <div class="accordion">
+          <div class="acc-item"><button class="acc-btn">1. Harga barang itu sendiri <span>+</span></button><div class="acc-content"><p>Perubahan harga sendiri menyebabkan pergerakan sepanjang kurva, bukan pergeseran kurva.</p></div></div>
+          <div class="acc-item"><button class="acc-btn">2. Harga barang lain <span>+</span></button><div class="acc-content"><p>Substitusi/pengganti: harga kopi naik, permintaan teh dapat naik. Komplementer/pelengkap: harga bensin naik, permintaan mobil dapat turun.</p></div></div>
+          <div class="acc-item"><button class="acc-btn">3. Pendapatan konsumen <span>+</span></button><div class="acc-content"><p>Pendapatan naik biasanya meningkatkan permintaan barang normal, tetapi dapat menurunkan permintaan barang inferior.</p></div></div>
+          <div class="acc-item"><button class="acc-btn">4. Selera atau cita rasa <span>+</span></button><div class="acc-content"><p>Tren atau perubahan gaya hidup dapat membuat suatu produk semakin diminati atau ditinggalkan.</p></div></div>
+          <div class="acc-item"><button class="acc-btn">5. Distribusi pendapatan <span>+</span></button><div class="acc-content"><p>Perubahan pembagian pendapatan dapat mengubah pola permintaan: misalnya permintaan rumah murah naik ketika daya beli kelompok berpendapatan rendah meningkat.</p></div></div>
+          <div class="acc-item"><button class="acc-btn">6. Jumlah penduduk <span>+</span></button><div class="acc-content"><p>Semakin banyak konsumen potensial, biasanya semakin besar permintaan pasar.</p></div></div>
+          <div class="acc-item"><button class="acc-btn">7. Ekspektasi harga masa depan <span>+</span></button><div class="acc-content"><p>Jika harga diperkirakan naik, konsumen dapat membeli lebih awal sehingga permintaan sekarang meningkat.</p></div></div>
+        </div>
+      </article>
+      <article class="card span-6">
+        <span class="label">Supply · Penawaran</span><h3>Hukum penawaran</h3><div class="lead">Harga naik → jumlah ditawarkan naik.</div>
+        <p>Penawaran adalah jumlah barang atau jasa yang ingin dan mampu dijual produsen pada berbagai tingkat harga dalam periode tertentu.</p>
+        <div class="formula">P ↑ → Qs ↑<small>Hubungan searah · kurva naik dari kiri bawah ke kanan atas.</small></div>
+        <div class="callout-title">5 faktor yang memengaruhi penawaran</div>
+        <div class="accordion">
+          <div class="acc-item"><button class="acc-btn">1. Harga barang itu sendiri <span>+</span></button><div class="acc-content"><p>Harga naik mendorong produsen menawarkan lebih banyak, dengan faktor lain tetap.</p></div></div>
+          <div class="acc-item"><button class="acc-btn">2. Harga barang lain <span>+</span></button><div class="acc-content"><p>Perubahan harga barang lain dapat mengubah pilihan produksi dan alokasi sumber daya produsen.</p></div></div>
+          <div class="acc-item"><button class="acc-btn">3. Biaya faktor produksi <span>+</span></button><div class="acc-content"><p>Biaya kedelai naik dapat membuat penjual tempe mengurangi produksi. Kurva penawaran bergeser ke kiri.</p></div></div>
+          <div class="acc-item"><button class="acc-btn">4. Tujuan perusahaan <span>+</span></button><div class="acc-content"><p>Perusahaan yang mengejar pangsa pasar dapat menawarkan lebih banyak barang meski laba per unit lebih tipis.</p></div></div>
+          <div class="acc-item"><button class="acc-btn">5. Teknologi <span>+</span></button><div class="acc-content"><p>Teknologi yang menekan biaya dan meningkatkan produktivitas dapat menggeser penawaran ke kanan.</p></div></div>
+        </div>
+      </article>
+      <article class="card span-12">
+        <span class="label">Grafik interaktif · Geser harga</span><h3>Lihat jumlah permintaan dan penawaran berubah</h3>
+        <p>Grafik memakai data contoh buku tulis dari materi pertemuan 3. Coba geser harga. Titik pada kurva bergerak dan selisih jumlahnya ikut berubah.</p>
+        <div class="grid">
+          <div class="span-7">
+            <div class="graph-frame"><svg id="marketGraph" viewBox="0 0 360 245" role="img" aria-label="Grafik kurva permintaan dan penawaran"></svg></div>
+            <div class="graph-caption"><span class="legend"><i class="dot d"></i>Permintaan (D)</span><span class="legend"><i class="dot s"></i>Penawaran (S)</span><span class="legend"><i class="dot e"></i>Harga pilihan</span></div>
+          </div>
+          <div class="span-5">
+            <div class="controls"><div class="control"><label for="marketPrice">Harga pasar <output id="marketPriceOut">Rp3.000</output></label><input id="marketPrice" type="range" min="1000" max="5000" step="500" value="3000"></div></div>
+            <div class="result-grid"><div class="result"><small>Jumlah diminta (Qd)</small><strong id="qdOut">600</strong></div><div class="result"><small>Jumlah ditawarkan (Qs)</small><strong id="qsOut">600</strong></div></div>
+            <div class="note green" id="marketState"><strong>Seimbang.</strong> Qd sama dengan Qs. Harga berada di titik keseimbangan.</div>
+            <p class="smallprint">Di harga Rp3.000, materi menunjukkan Qd = Qs = 600 buku.</p>
+          </div>
+        </div>
+      </article>
+      <article class="card span-12">
+        <span class="label">Simulasi pergeseran kurva</span><h3>Faktor lain menggeser kurva ke kanan atau kiri</h3>
+        <p>Tekan salah satu penyebab. Perhatikan bagaimana posisi kurva berubah dan apa yang terjadi pada harga serta jumlah keseimbangan.</p>
+        <div class="btn-row" id="shiftButtons">
+          <button class="btn secondary" data-shift="normal">Kondisi awal</button><button class="btn secondary" data-shift="demandRight">Permintaan naik</button><button class="btn secondary" data-shift="demandLeft">Permintaan turun</button><button class="btn secondary" data-shift="supplyRight">Penawaran naik</button><button class="btn secondary" data-shift="supplyLeft">Penawaran turun</button>
+        </div>
+        <div class="grid" style="margin-top:10px">
+          <div class="span-7"><div class="graph-frame"><svg id="shiftGraph" viewBox="0 0 360 245" role="img" aria-label="Simulasi pergeseran kurva permintaan dan penawaran"></svg></div><div class="graph-caption"><span class="legend"><i class="dot d"></i>Kurva baru</span><span class="legend"><i class="dot s"></i>Kurva lain</span><span class="legend"><i class="dot e"></i>Titik keseimbangan baru</span></div></div>
+          <div class="span-5"><div class="result-grid"><div class="result"><small>Harga keseimbangan</small><strong id="shiftPrice">Tetap</strong></div><div class="result"><small>Jumlah keseimbangan</small><strong id="shiftQty">Tetap</strong></div></div><div class="note" id="shiftExplain">Pada kondisi awal, permintaan dan penawaran bertemu di satu titik keseimbangan.</div></div>
+        </div>
+        <div class="note orange"><strong>Jangan tertukar:</strong> perubahan harga barang itu sendiri menyebabkan gerakan sepanjang kurva. Perubahan faktor lain (pendapatan, selera, teknologi, biaya input, dan sebagainya) menggeser kurva.</div>
+      </article>
+      <article class="card span-6">
+        <span class="label">Cara menghitung · Keseimbangan pasar</span><h3>Samakan Qd dan Qs</h3>
+        <div class="formula">Qd = c − dP<br>Qs = −m + nP</div>
+        <p>Syarat pasar seimbang: <b>Qd = Qs</b>. P adalah harga, Qd jumlah diminta, dan Qs jumlah ditawarkan.</p>
+        <div class="steps">
+          <div class="step"><div><b>Tulis kedua persamaan</b><p>Misal Qd = 100 − 2P dan Qs = −20 + 4P.</p></div></div>
+          <div class="step"><div><b>Samakan keduanya</b><p>100 − 2P = −20 + 4P.</p></div></div>
+          <div class="step"><div><b>Pindahkan angka dan P</b><p>120 = 6P, sehingga P = 20.</p></div></div>
+          <div class="step"><div><b>Masukkan P ke salah satu persamaan</b><p>Q = 100 − 2(20) = 60. Jadi Pe = 20 dan Qe = 60.</p></div></div>
+        </div>
+      </article>
+      <article class="card span-6">
+        <span class="label">Kalkulator keseimbangan</span><h3>Coba angka dari soal Anda</h3>
+        <p>Masukkan bentuk Qd = c − dP dan Qs = −m + nP. Hasil akan dihitung otomatis.</p>
+        <div class="input-grid">
+          <div class="field"><label for="eqC">c · Qd = c − dP</label><input id="eqC" type="number" value="100"></div>
+          <div class="field"><label for="eqD">d</label><input id="eqD" type="number" value="2"></div>
+          <div class="field"><label for="eqM">m · Qs = −m + nP</label><input id="eqM" type="number" value="20"></div>
+          <div class="field"><label for="eqN">n</label><input id="eqN" type="number" value="4"></div>
+        </div>
+        <div class="btn-row"><button class="btn" id="eqCalc">Hitung keseimbangan</button><button class="btn secondary" id="eqReset">Reset contoh</button></div>
+        <div class="result-grid"><div class="result"><small>Harga keseimbangan (Pe)</small><strong id="eqP">20</strong></div><div class="result"><small>Jumlah keseimbangan (Qe)</small><strong id="eqQ">60</strong></div></div>
+        <div class="note" id="eqExplain">Qd dan Qs sama-sama bernilai 60 pada harga 20.</div>
+      </article>
+      <article class="card span-12">
+        <span class="label">Surplus konsumen dan produsen</span><h3>Siapa mendapat manfaat dari transaksi?</h3>
+        <div class="two-col">
+          <div class="mini"><h4>Surplus konsumen (SK)</h4><p>Selisih antara harga maksimum yang bersedia dibayar konsumen dan harga pasar yang benar-benar dibayar.</p><div class="formula">SK = harga kesediaan bayar − harga pasar</div></div>
+          <div class="mini"><h4>Surplus produsen (SP)</h4><p>Selisih antara harga pasar yang diterima produsen dan harga minimum yang bersedia diterima.</p><div class="formula">SP = harga pasar − harga minimum</div></div>
+        </div>
+        <div class="note blue"><strong>Di grafik:</strong> SK adalah segitiga di atas harga keseimbangan dan di bawah kurva permintaan. SP adalah segitiga di bawah harga keseimbangan dan di atas kurva penawaran.</div>
+        <div class="note orange"><strong>Catatan istilah:</strong> kelebihan penawaran (Qs &gt; Qd) adalah kondisi stok berlebih yang mendorong harga turun. Jangan samakan kondisi itu dengan surplus produsen (SP) sebagai manfaat produsen yang dihitung dari selisih harga pada grafik.</div>
+      </article>
+      <article class="card span-7">
+        <span class="label">Grafik surplus · Area segitiga</span><h3>Bedakan area SK dan SP</h3>
+        <div class="segmented"><button class="seg-btn active" data-surplus="both">Keduanya</button><button class="seg-btn" data-surplus="sk">SK</button><button class="seg-btn" data-surplus="sp">SP</button></div>
+        <div class="graph-frame"><svg id="surplusGraph" viewBox="0 0 360 230" role="img" aria-label="Grafik surplus konsumen dan produsen"></svg></div>
+        <div class="graph-caption"><span class="legend"><i class="dot d"></i>Kurva permintaan</span><span class="legend"><i class="dot s"></i>Kurva penawaran</span><span class="legend"><i class="dot e"></i>Pe</span></div>
+      </article>
+      <article class="card span-5">
+        <span class="label">Rumus grafik linear</span><h3>Hitung luas segitiga</h3>
+        <div class="formula">SK = ½ × Qe × (P maks − Pe)</div>
+        <div class="formula">SP = ½ × Qe × (Pe − P min)</div>
+        <p>Gunakan Qe sebagai alas. Selisih harga menjadi tinggi segitiga.</p>
+        <div class="note orange">Contoh materi: Pe = 60, Qe = 20, P maks = 100, P min = 20. Maka SK = 400 dan SP = 400. Total surplus = 800.</div>
+      </article>
+      <article class="card span-12">
+        <span class="label">Kalkulator surplus</span><h3>Hitung dari fungsi kurva</h3>
+        <p>Gunakan bentuk fungsi harga: permintaan P = a − bQ dan penawaran P = c + dQ.</p>
+        <div class="input-grid">
+          <div class="field"><label for="surA">a · harga maksimum</label><input id="surA" type="number" value="100"></div><div class="field"><label for="surB">b · kemiringan permintaan</label><input id="surB" type="number" value="2"></div>
+          <div class="field"><label for="surC">c · harga minimum</label><input id="surC" type="number" value="20"></div><div class="field"><label for="surD">d · kemiringan penawaran</label><input id="surD" type="number" value="2"></div>
+        </div>
+        <div class="btn-row"><button class="btn" id="surCalc">Hitung surplus</button><button class="btn secondary" id="surReset">Reset contoh</button></div>
+        <div class="result-grid"><div class="result"><small>Qe</small><strong id="surQ">20</strong></div><div class="result"><small>Pe</small><strong id="surP">60</strong></div><div class="result"><small>Surplus konsumen</small><strong id="surSK">400</strong></div><div class="result"><small>Surplus produsen</small><strong id="surSP">400</strong></div></div>
+        <div class="note" id="surExplain">Total surplus = 800. Satuan mengikuti satuan harga dan jumlah pada soal.</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="elastisitas" data-topic="3">
+    <div class="section-head"><div class="section-no">03</div><div><h2>Elastisitas permintaan & penawaran</h2><p>Pertemuan 4 · Ukur seberapa responsif jumlah terhadap perubahan harga.</p></div></div>
+    <div class="grid">
+      <article class="card span-6">
+        <span class="label">Pengertian</span><div class="lead">Elastisitas menunjukkan seberapa besar respons jumlah barang ketika harga berubah.</div>
+        <p>Nilai elastisitas membandingkan persentase perubahan jumlah dengan persentase perubahan harga.</p>
+        <div class="formula">Ed = % perubahan Qd ÷ % perubahan P</div><div class="formula">Es = % perubahan Qs ÷ % perubahan P</div>
+        <p>Nilai elastisitas penawaran umumnya positif. Untuk permintaan, besar koefisien sering dibaca dengan nilai absolut karena jumlah diminta dan harga bergerak berlawanan arah.</p>
+      </article>
+      <article class="card span-6">
+        <span class="label">Klasifikasi</span><h3>Cara membaca hasilnya</h3>
+        <div class="keyline"><span><b>Lebih dari 1</b></span><span><span class="badge">Elastis</span></span></div><div class="keyline"><span><b>Sama dengan 1</b></span><span>Elastis uniter</span></div><div class="keyline"><span><b>Kurang dari 1</b></span><span>Inelastis</span></div><div class="keyline"><span><b>Sama dengan 0</b></span><span>Inelastis sempurna</span></div><div class="keyline"><span><b>Tak terhingga</b></span><span>Elastis sempurna</span></div>
+        <div class="note">Contoh: barang pabrikan cenderung lebih mudah ditambah produksinya daripada hasil panen yang butuh waktu tanam.</div>
+      </article>
+      <article class="card span-12">
+        <span class="label">Contoh di foto kisi-kisi · Elastisitas penawaran beras</span><h3>Kerjakan dengan persentase terhadap nilai awal</h3>
+        <p>Harga beras naik dari Rp12.000 menjadi Rp15.000 per kg. Jumlah yang ditawarkan naik dari 200 kg menjadi 260 kg.</p>
+        <div class="grid">
+          <div class="span-6">
+            <div class="steps">
+              <div class="step"><div><b>Hitung persentase perubahan harga</b><p>(15.000 − 12.000) ÷ 12.000 × 100% = 25%.</p></div></div>
+              <div class="step"><div><b>Hitung persentase perubahan jumlah</b><p>(260 − 200) ÷ 200 × 100% = 30%.</p></div></div>
+              <div class="step"><div><b>Hitung elastisitas penawaran</b><p>Es = 30% ÷ 25% = 1,2.</p></div></div>
+            </div>
+          </div>
+          <div class="span-6">
+            <div class="result-grid"><div class="result"><small>% perubahan harga</small><strong>25%</strong></div><div class="result"><small>% perubahan jumlah</small><strong>30%</strong></div><div class="result"><small>Es</small><strong>1,2</strong></div><div class="result"><small>Sifat penawaran</small><strong>Elastis</strong></div></div>
+            <div class="note green"><strong>Kesimpulan:</strong> 1,2 lebih besar dari 1, artinya persentase perubahan jumlah yang ditawarkan lebih besar daripada persentase perubahan harga.</div>
+          </div>
+        </div>
+      </article>
+      <article class="card span-7">
+        <span class="label">Kalkulator elastisitas</span><h3>Masukkan data dari soal</h3>
+        <p>Pilih metode sesuai instruksi soal atau contoh dosen. Metode awal cocok untuk meniru perhitungan pada foto kisi-kisi.</p>
+        <div class="segmented"><button class="seg-btn active" data-elastic="awal">Nilai awal</button><button class="seg-btn" data-elastic="tengah">Titik tengah</button></div>
+        <div class="input-grid" style="margin-top:12px">
+          <div class="field"><label for="eP1">Harga awal (P1)</label><input id="eP1" type="number" value="12000"></div><div class="field"><label for="eP2">Harga akhir (P2)</label><input id="eP2" type="number" value="15000"></div>
+          <div class="field"><label for="eQ1">Jumlah awal (Q1)</label><input id="eQ1" type="number" value="200"></div><div class="field"><label for="eQ2">Jumlah akhir (Q2)</label><input id="eQ2" type="number" value="260"></div>
+        </div>
+        <div class="btn-row"><button class="btn" id="elasticCalc">Hitung elastisitas</button><button class="btn secondary" id="elasticReset">Reset contoh foto</button></div>
+      </article>
+      <article class="card span-5">
+        <span class="label">Hasil dan penjelasan</span><h3 id="elasticTitle">Metode nilai awal</h3>
+        <div class="result-grid"><div class="result"><small>Perubahan harga</small><strong id="ePctP">25%</strong></div><div class="result"><small>Perubahan jumlah</small><strong id="ePctQ">30%</strong></div></div>
+        <div class="result" style="margin-top:9px"><small>Koefisien elastisitas</small><strong id="eResult">1,20 · Elastis</strong></div>
+        <div class="note" id="elasticExplain">Perhitungan memakai angka awal sebagai pembagi, sesuai contoh yang tertulis di foto kisi-kisi.</div>
+      </article>
+      <article class="card span-12">
+        <span class="label">Jangan tertukar</span><h3>Metode nilai awal vs metode titik tengah</h3>
+        <div class="two-col">
+          <div class="mini"><h4>Metode nilai awal</h4><p>% perubahan = (nilai akhir − nilai awal) ÷ nilai awal × 100%. Ini yang dipakai pada contoh beras di foto: Es = 1,2.</p></div>
+          <div class="mini"><h4>Metode titik tengah</h4><p>% perubahan = (nilai akhir − nilai awal) ÷ rata-rata dua nilai × 100%. Materi PPT pertemuan 4 menampilkan metode ini untuk mengurangi pengaruh arah perubahan.</p></div>
+        </div>
+        <div class="formula">Elastisitas titik tengah = [ΔQ ÷ ((Q1 + Q2)/2)] ÷ [ΔP ÷ ((P1 + P2)/2)]</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="konsumen" data-topic="4">
+    <div class="section-head"><div class="section-no">04</div><div><h2>Perilaku konsumen</h2><p>Pertemuan 6 · Mengapa seseorang memilih satu barang dibanding yang lain?</p></div></div>
+    <div class="grid">
+      <article class="card span-6">
+        <span class="label">Proses keputusan pembelian</span><h3>Empat tahap yang perlu dikenali</h3>
+        <div class="steps">
+          <div class="step"><div><b>Pencarian informasi</b><p>Mencari pengalaman pribadi, bertanya kepada teman, membaca ulasan, atau membuka internet.</p></div></div>
+          <div class="step"><div><b>Evaluasi alternatif</b><p>Membandingkan harga, kualitas, merek, fitur, dan manfaat.</p></div></div>
+          <div class="step"><div><b>Keputusan pembelian</b><p>Menentukan produk, toko, waktu, dan cara pembayaran.</p></div></div>
+          <div class="step"><div><b>Perilaku pascapembelian</b><p>Merasa puas atau tidak puas, melakukan pembelian ulang, atau memberi ulasan.</p></div></div>
+        </div>
+      </article>
+      <article class="card span-6">
+        <span class="label">Faktor yang memengaruhi</span><h3>Kelompok ekonomi dan non-ekonomi</h3>
+        <div class="two-col">
+          <div class="mini"><h4>Ekonomi</h4><p>Pendapatan, harga barang, harga barang lain (substitusi/komplementer), dan promosi harga seperti diskon atau cashback.</p></div>
+          <div class="mini"><h4>Non-ekonomi</h4><p>Budaya, sosial (keluarga/teman), pribadi (usia/gaya hidup), dan psikologis (motivasi/persepsi/keyakinan).</p></div>
+        </div>
+        <div class="note">Petunjuk soal: pendapatan dan diskon termasuk faktor ekonomi. Rekomendasi teman, tren, dan persepsi merek termasuk faktor non-ekonomi.</div>
+      </article>
+      <article class="card span-12">
+        <span class="label">Contoh kasus · Belanja ponsel di e-commerce</span><h3>Identifikasi faktor dari cerita</h3>
+        <p>Rani ingin membeli ponsel. Ia punya anggaran terbatas, membandingkan tiga merek, membaca ulasan, lalu memilih ponsel yang sedang diskon karena teman-temannya memberi ulasan positif. Setelah membeli, ia merasa puas dan memberi rating bintang lima.</p>
+        <div class="table-wrap"><table><thead><tr><th>Bagian cerita</th><th>Konsep</th><th>Alasan</th></tr></thead><tbody>
+          <tr><td>Anggaran terbatas</td><td>Faktor ekonomi</td><td>Pendapatan membatasi daya beli.</td></tr>
+          <tr><td>Membandingkan tiga merek</td><td>Evaluasi alternatif</td><td>Menilai pilihan sebelum membeli.</td></tr>
+          <tr><td>Diskon</td><td>Promosi harga</td><td>Insentif ekonomi yang memengaruhi keputusan.</td></tr>
+          <tr><td>Ulasan teman</td><td>Faktor sosial</td><td>Kelompok referensi memengaruhi pilihan.</td></tr>
+          <tr><td>Memberi rating</td><td>Pascapembelian</td><td>Evaluasi setelah menggunakan produk.</td></tr>
+        </tbody></table></div>
+      </article>
+      <article class="card span-6">
+        <span class="label">Utilitas dan kepuasan</span><h3>Utilitas total dan marginal</h3>
+        <p><b>Utilitas</b> adalah tingkat kepuasan dari mengonsumsi barang atau jasa. Kardinal mengukur kepuasan dengan angka, sedangkan ordinal hanya mengurutkan tingkat kesukaan.</p>
+        <div class="formula">MU = ΔTU ÷ ΔQ<small>MU = tambahan kepuasan · TU = kepuasan total · Q = jumlah konsumsi.</small></div>
+        <p>Hukum Gossen I: semakin banyak barang dikonsumsi, tambahan kepuasan biasanya semakin menurun. TU maksimum saat MU = 0.</p>
+      </article>
+      <article class="card span-6">
+        <span class="label">Grafik interaktif · Bakso</span><h3>Lihat TU dan MU berubah</h3>
+        <div class="segmented"><button class="seg-btn active" data-utility="tu">Utilitas total</button><button class="seg-btn" data-utility="mu">Utilitas marginal</button></div>
+        <div class="graph-frame"><svg id="utilityGraph" viewBox="0 0 360 220" role="img" aria-label="Grafik utilitas total dan marginal"></svg></div>
+        <p id="utilityNote" class="smallprint">TU mencapai maksimum 60 pada mangkuk ke-3 sampai ke-4. Saat MU = 0, TU tidak bertambah lagi.</p>
+      </article>
+      <article class="card span-12">
+        <span class="label">Kurva indiferen dan garis anggaran</span><h3>Kepuasan sama, pilihan dibatasi uang</h3>
+        <p>Kurva indiferen menghubungkan kombinasi dua barang dengan kepuasan yang sama. Garis anggaran menunjukkan kombinasi yang masih bisa dibeli.</p>
+        <div class="grid">
+          <div class="span-7"><div class="graph-frame"><svg id="budgetGraph" viewBox="0 0 360 230" role="img" aria-label="Kurva indiferen dan garis anggaran"></svg></div><div class="graph-caption"><span class="legend"><i class="dot d"></i>Kurva indiferen</span><span class="legend"><i class="dot s"></i>Garis anggaran</span><span class="legend"><i class="dot e"></i>Kombinasi optimal</span></div></div>
+          <div class="span-5"><div class="control"><label for="income">Uang saku per minggu <output id="incomeOut">Rp120.000</output></label><input id="income" type="range" min="60000" max="180000" step="10000" value="120000"></div>
+            <div class="result-grid"><div class="result"><small>Kopi (X)</small><strong id="optX">6</strong></div><div class="result"><small>Roti (Y)</small><strong id="optY">12</strong></div></div>
+            <div class="note">Contoh materi: harga kopi Rp10.000, roti Rp5.000, uang saku Rp120.000. Untuk fungsi U = X × Y, kombinasi optimalnya 6 kopi dan 12 roti.</div>
+          </div>
+        </div>
+        <div class="formula">Garis anggaran: I = Px × X + Py × Y</div><div class="formula">Keseimbangan: MRS = Px/Py atau MUx/Px = MUy/Py</div>
+        <div class="note blue"><strong>Ciri kurva indiferen:</strong> miring negatif, cembung terhadap titik asal, tidak saling berpotongan, dan kurva yang lebih jauh dari titik asal menunjukkan tingkat kepuasan lebih tinggi.</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="produksi" data-topic="5">
+    <div class="section-head"><div class="section-no">05</div><div><h2>Produksi dan biaya produksi</h2><p>Pertemuan 7 · Bagian hitungan: kenali simbol sebelum memasukkan angka.</p></div></div>
+    <div class="grid">
+      <article class="card span-6">
+        <span class="label">Teori produksi</span><h3>Input diubah menjadi output</h3>
+        <p>Produksi adalah kegiatan mengubah sumber daya menjadi barang atau jasa yang memiliki nilai guna.</p>
+        <div class="formula">Q = f(K, L, R, T)<small>Q = output · K = modal · L = tenaga kerja · R = sumber daya/material · T = teknologi.</small></div>
+        <div class="keyline"><span>Faktor tetap</span><b>Bangunan, mesin, sewa</b></div><div class="keyline"><span>Faktor variabel</span><b>Bahan baku, tenaga harian</b></div>
+        <div class="note">Jangka pendek: minimal ada satu faktor tetap. Jangka panjang: semua faktor produksi dapat diubah.</div>
+      </article>
+      <article class="card span-6">
+        <span class="label">Produktivitas dan hasil berkurang</span><h3>Tambahan pekerja tidak selalu menambah hasil secara sama besar</h3>
+        <div class="formula">Produktivitas = Output ÷ Input</div>
+        <p>Hukum kenaikan hasil yang semakin berkurang: ketika input variabel terus ditambah pada input tetap, pada titik tertentu tambahan output (MP) semakin kecil.</p>
+        <div class="two-col"><div class="mini"><h4>Tahap I</h4><p>AP naik; faktor tetap belum dimanfaatkan penuh.</p></div><div class="mini"><h4>Tahap II</h4><p>AP turun, MP masih positif; daerah produksi rasional.</p></div><div class="mini"><h4>Tahap III</h4><p>MP negatif dan TP turun; tidak rasional.</p></div><div class="mini"><h4>Efisiensi</h4><p>Output tertentu dengan input minimum, atau output maksimum dengan input tertentu.</p></div></div>
+      </article>
+      <article class="card span-12">
+        <span class="label">Peta rumus biaya produksi</span><h3>Hafalkan arti simbolnya terlebih dahulu</h3>
+        <div class="table-wrap"><table><thead><tr><th>Simbol</th><th>Arti</th><th>Makna sederhana</th></tr></thead><tbody>
+          <tr><td>FC</td><td>Fixed Cost</td><td>Biaya tetap total.</td></tr><tr><td>VC</td><td>Variable Cost</td><td>Biaya variabel total.</td></tr><tr><td>TC</td><td>Total Cost</td><td>Seluruh biaya produksi.</td></tr><tr><td>AFC</td><td>Average Fixed Cost</td><td>Biaya tetap rata-rata per unit.</td></tr><tr><td>AVC</td><td>Average Variable Cost</td><td>Biaya variabel rata-rata per unit.</td></tr><tr><td>ATC / AC</td><td>Average Total Cost</td><td>Biaya total rata-rata per unit.</td></tr><tr><td>MC</td><td>Marginal Cost</td><td>Tambahan biaya untuk menambah produksi.</td></tr><tr><td>Q</td><td>Quantity</td><td>Jumlah unit yang diproduksi.</td></tr><tr><td>v</td><td>Biaya variabel per unit</td><td>Biaya variabel untuk satu unit.</td></tr></tbody></table></div>
+      </article>
+      <article class="card span-7">
+        <span class="label">Rumus inti · Biaya</span><h3>Ini rumus yang paling sering dipakai</h3>
+        <div class="formula-list">
+          <div class="formula">VC = v × Q</div><div class="formula">TC = FC + VC</div><div class="formula">AFC = FC ÷ Q</div><div class="formula">AVC = VC ÷ Q</div><div class="formula">ATC = TC ÷ Q = AFC + AVC</div><div class="formula">MC = ΔTC ÷ ΔQ</div><div class="formula">BEP (Q) = FC ÷ (P − v)</div>
+        </div>
+        <div class="note orange"><strong>Trik:</strong> hitung VC dulu jika diketahui biaya per unit. Tambahkan FC untuk memperoleh TC. Setelah itu, bagi biaya dengan Q untuk mendapat biaya rata-rata.</div>
+      </article>
+      <article class="card span-12">
+        <span class="label">Contoh hitungan lengkap · Angka dari materi pertemuan 7</span><h3>Ikuti urutan ini saat mengerjakan soal biaya</h3>
+        <p>Diketahui FC = Rp100.000.000, biaya variabel per pengguna (v) = Rp20.000, jumlah pengguna (Q) = 10.000, dan harga jual (P) = Rp50.000.</p>
+        <div class="steps">
+          <div class="step"><div><b>Hitung biaya variabel total</b><p>VC = v × Q = Rp20.000 × 10.000 = <strong>Rp200.000.000</strong>.</p></div></div>
+          <div class="step"><div><b>Hitung biaya total</b><p>TC = FC + VC = Rp100.000.000 + Rp200.000.000 = <strong>Rp300.000.000</strong>.</p></div></div>
+          <div class="step"><div><b>Hitung biaya rata-rata</b><p>AFC = FC ÷ Q = Rp10.000; AVC = VC ÷ Q = Rp20.000; ATC = TC ÷ Q = <strong>Rp30.000 per pengguna</strong>.</p></div></div>
+          <div class="step"><div><b>Hitung titik impas</b><p>BEP = FC ÷ (P − v) = Rp100.000.000 ÷ Rp30.000 = 3.333,33. Dibulatkan ke atas menjadi <strong>3.334 pengguna</strong>.</p></div></div>
+          <div class="step"><div><b>Hitung laba pada 10.000 pengguna</b><p>Laba = (P × Q) − TC = Rp500.000.000 − Rp300.000.000 = <strong>Rp200.000.000</strong>.</p></div></div>
+        </div>
+        <div class="note green"><strong>Urutan aman:</strong> cari VC → TC → biaya rata-rata → BEP atau laba sesuai yang ditanyakan. Jangan langsung memasukkan semua angka ke rumus yang berbeda.</div>
+      </article>
+      <article class="card span-5">
+        <span class="label">Hubungan antarbiaya</span><h3>Makna hasil hitungan</h3>
+        <div class="keyline"><span>Q bertambah</span><b>AFC turun</b></div><div class="keyline"><span>MC lebih kecil dari ATC</span><b>ATC turun</b></div><div class="keyline"><span>MC lebih besar dari ATC</span><b>ATC naik</b></div><div class="keyline"><span>FC</span><b>Tidak dipengaruhi Q</b></div>
+        <p style="margin-top:10px">MC memotong kurva AVC dan ATC tepat pada titik terendah keduanya.</p>
+      </article>
+      <article class="card span-12">
+        <span class="label">Kalkulator biaya produksi</span><h3>Masukkan biaya dan jumlah produksi</h3>
+        <div class="input-grid">
+          <div class="field"><label for="fcInput">FC · biaya tetap (Rp)</label><input id="fcInput" type="number" value="100000000"></div>
+          <div class="field"><label for="vInput">v · biaya variabel per unit (Rp)</label><input id="vInput" type="number" value="20000"></div>
+          <div class="field"><label for="qInput">Q · jumlah unit</label><input id="qInput" type="number" value="10000"></div>
+          <div class="field"><label for="priceInput">P · harga jual per unit (Rp)</label><input id="priceInput" type="number" value="50000"></div>
+        </div>
+        <div class="btn-row"><button class="btn" id="costCalc">Hitung biaya</button><button class="btn secondary" id="costReset">Reset contoh materi</button></div>
+        <div class="result-grid">
+          <div class="result"><small>VC = v × Q</small><strong id="vcOut">Rp200 jt</strong></div><div class="result"><small>TC = FC + VC</small><strong id="tcOut">Rp300 jt</strong></div>
+          <div class="result"><small>AFC = FC ÷ Q</small><strong id="afcOut">Rp10.000</strong></div><div class="result"><small>AVC = VC ÷ Q</small><strong id="avcOut">Rp20.000</strong></div>
+          <div class="result"><small>ATC = TC ÷ Q</small><strong id="atcOut">Rp30.000</strong></div><div class="result"><small>MC (v konstan)</small><strong id="mcOut">Rp20.000</strong></div>
+          <div class="result"><small>BEP · jumlah unit</small><strong id="bepOut">3.334 unit</strong></div><div class="result"><small>Laba / rugi pada Q</small><strong id="profitOut">Rp200 jt</strong></div>
+        </div>
+        <div class="note" id="costExplain">BEP tepatnya 3.333,33 pengguna. Jika harus jumlah unit bulat, minimal 3.334 pengguna agar impas atau sedikit di atasnya.</div>
+      </article>
+      <article class="card span-12">
+        <span class="label">Grafik biaya · Geser jumlah produksi</span><h3>Biaya tetap tidak berubah, biaya total ikut naik</h3>
+        <div class="grid">
+          <div class="span-7"><div class="graph-frame"><svg id="costGraph" viewBox="0 0 360 220" role="img" aria-label="Grafik biaya tetap, variabel dan total"></svg></div><div class="graph-caption"><span class="legend"><i class="dot d"></i>Biaya tetap</span><span class="legend"><i class="dot s"></i>Biaya variabel</span><span class="legend"><i class="dot e"></i>Biaya total</span></div></div>
+          <div class="span-5"><div class="control"><label for="costQty">Jumlah pengguna <output id="costQtyOut">5.000</output></label><input id="costQty" type="range" min="0" max="10000" step="500" value="5000"></div><div class="result-grid"><div class="result"><small>FC</small><strong>Rp100 jt</strong></div><div class="result"><small>VC</small><strong id="graphVC">Rp100 jt</strong></div><div class="result"><small>TC</small><strong id="graphTC">Rp200 jt</strong></div></div><div class="note">Grafik memakai ilustrasi FC Rp100 juta dan biaya variabel Rp20.000 per pengguna dari contoh pertemuan 7.</div></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="latihan" data-topic="6">
+    <div class="section-head"><div class="section-no">06</div><div><h2>Uji pemahaman</h2><p>Jawab dulu tanpa melihat catatan. Setiap jawaban disertai alasan.</p></div></div>
+    <div class="grid">
+      <article class="card span-8">
+        <span class="label">Kuis campuran · 8 soal</span><div class="quiz-footer"><small id="quizCount">Soal 1 dari 8</small><small id="quizScore">Skor: 0</small></div>
+        <div class="progress-track" style="margin:8px 0 15px"><div class="progress-fill" id="quizProgress" style="width:12.5%"></div></div>
+        <div class="quiz-question" id="questionText">Apa yang dimaksud biaya peluang?</div>
+        <div class="choices" id="choices"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="quiz-footer"><button class="btn secondary" id="quizReset">Ulangi kuis</button><button class="btn" id="quizNext" disabled>Soal berikutnya →</button></div>
+      </article>
+      <article class="card span-4">
+        <span class="label">Strategi sebelum UTS</span><h3>Jangan hanya menghafal rumus</h3>
+        <div class="steps">
+          <div class="step"><div><b>Baca cerita soalnya</b><p>Tentukan konsep apa yang sedang diuji.</p></div></div>
+          <div class="step"><div><b>Tulis yang diketahui</b><p>Pisahkan angka awal, angka akhir, harga, dan jumlah.</p></div></div>
+          <div class="step"><div><b>Pilih rumus sesuai pertanyaan</b><p>Jangan tertukar antara rata-rata, marginal, dan total.</p></div></div>
+          <div class="step"><div><b>Tulis kesimpulan</b><p>Jelaskan makna hasil, misalnya elastis atau inelastis.</p></div></div>
+        </div>
+      </article>
+      <article class="card span-12">
+        <span class="label">Ringkasan kilat</span><h3>Rumus yang perlu Anda kenali</h3>
+        <div class="grid">
+          <div class="span-4"><div class="formula">Qd = Qs</div><p class="smallprint">Keseimbangan pasar.</p></div>
+          <div class="span-4"><div class="formula">SK = ½ × Qe × (P maks − Pe)</div><p class="smallprint">Surplus konsumen pada kurva linear.</p></div>
+          <div class="span-4"><div class="formula">SP = ½ × Qe × (Pe − P min)</div><p class="smallprint">Surplus produsen pada kurva linear.</p></div>
+          <div class="span-4"><div class="formula">Es = %ΔQs ÷ %ΔP</div><p class="smallprint">Elastisitas penawaran.</p></div>
+          <div class="span-4"><div class="formula">MU = ΔTU ÷ ΔQ</div><p class="smallprint">Utilitas marginal.</p></div>
+          <div class="span-4"><div class="formula">TC = FC + VC</div><p class="smallprint">Biaya total.</p></div>
+          <div class="span-4"><div class="formula">ATC = TC ÷ Q</div><p class="smallprint">Biaya total rata-rata.</p></div>
+          <div class="span-4"><div class="formula">MC = ΔTC ÷ ΔQ</div><p class="smallprint">Biaya marginal.</p></div>
+          <div class="span-4"><div class="formula">BEP = FC ÷ (P − v)</div><p class="smallprint">Jumlah unit saat impas.</p></div>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+<footer class="footer"><div class="wrap"><strong>RUANG EKONOMI</strong><p>Disusun mengikuti kisi-kisi foto dan materi Pengantar Ekonomi pertemuan 1–7 yang Anda unggah.</p><p>Fokus: konsep, contoh kasus, grafik, rumus, dan latihan UTS. Bisa digunakan tanpa koneksi internet.</p></div></footer>
+<nav class="mobile-dock" aria-label="Navigasi cepat"><a href="#dasar"><span>01</span>Konsep</a><a href="#pasar"><span>↗</span>Kurva</a><a href="#elastisitas"><span>%</span>Elastisitas</a><a href="#produksi"><span>∑</span>Biaya</a><a href="#latihan"><span>✓</span>Latihan</a></nav>
+<script>
+const $=id=>document.getElementById(id);
+const fmt=(n,dec=0)=>Number(n).toLocaleString('id-ID',{maximumFractionDigits:dec,minimumFractionDigits:dec});
+const money=n=>'Rp'+fmt(n);
+const compactMoney=n=>{if(Math.abs(n)>=1e9)return 'Rp'+fmt(n/1e9,2)+' M';if(Math.abs(n)>=1e6)return 'Rp'+fmt(n/1e6,1)+' jt';return money(n)};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+// Section progress and active navigation
+const topicIds=[...document.querySelectorAll('[data-topic]')].map(x=>x.id);let opened=new Set();
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){opened.add(e.target.id);$('progressText').textContent=opened.size+' dari 6 topik dibuka';$('progressFill').style.width=(opened.size/6*100)+'%';document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));}})},{threshold:.14});
+topicIds.forEach(id=>obs.observe($(id)));
+// Accordion controls
+document.querySelectorAll('.acc-btn').forEach(btn=>btn.addEventListener('click',()=>{const panel=btn.nextElementSibling;const open=panel.classList.toggle('open');btn.querySelector('span').textContent=open?'−':'+';}));
+
+// Generic SVG helpers
+function axes(w=360,h=245){return `<g stroke="#dfe4dd" stroke-width="1"><path d="M42 18V${h-28}H${w-12}" fill="none"/><path d="M42 70H${w-12}M42 122H${w-12}M42 174H${w-12}" stroke-dasharray="3 5"/></g><g fill="#718082" font-size="9" font-family="system-ui"><text x="10" y="16">P / Biaya</text><text x="${w-34}" y="${h-8}">Q</text></g>`}
+function poly(points,color,width=3){return `<polyline points="${points.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${color}" stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round"/>`}
+function interpolate(xs,ys,x){if(x<=xs[0])return ys[0];if(x>=xs[xs.length-1])return ys[ys.length-1];for(let i=0;i<xs.length-1;i++){if(x>=xs[i]&&x<=xs[i+1]){let t=(x-xs[i])/(xs[i+1]-xs[i]);return ys[i]+t*(ys[i+1]-ys[i]);}}return ys[0]}
+const pVals=[1000,2000,3000,4000,5000],qdVals=[1300,900,600,400,200],qsVals=[100,375,600,800,900];
+function marketUpdate(){const p=+$('marketPrice').value;const qd=interpolate(pVals,qdVals,p),qs=interpolate(pVals,qsVals,p);$('marketPriceOut').textContent=money(p);$('qdOut').textContent=fmt(qd);$('qsOut').textContent=fmt(qs);let status;
+ if(Math.abs(qd-qs)<1){status='<strong>Seimbang.</strong> Qd sama dengan Qs. Harga berada di titik keseimbangan.';$('marketState').className='note green';}
+ else if(qs>qd){status='<strong>Kelebihan penawaran.</strong> Stok lebih banyak daripada yang diminta. Penjual terdorong menurunkan harga.';$('marketState').className='note orange';}
+ else{status='<strong>Kelebihan permintaan.</strong> Jumlah yang diminta lebih besar daripada stok. Harga terdorong naik.';$('marketState').className='note blue';}
+ $('marketState').innerHTML=status;
+ const xQ=q=>42+q/1400*292, yP=v=>210-(v-1000)/4000*178;
+ const dPts=pVals.map((v,i)=>[xQ(qdVals[i]),yP(v)]),sPts=pVals.map((v,i)=>[xQ(qsVals[i]),yP(v)]);
+ const y=yP(p),xd=xQ(qd),xs=xQ(qs);
+ $('marketGraph').innerHTML=`${axes(360,245)}${poly(dPts,'#477e9d',3)}${poly(sPts,'#d48151',3)}<path d="M42 ${y}H${Math.max(xd,xs)}" stroke="#17343a" stroke-dasharray="4 4" opacity=".65"/><path d="M${xd} ${y}V210M${xs} ${y}V210" stroke="#9aa8a2" stroke-dasharray="3 4"/><circle cx="${xd}" cy="${y}" r="5" fill="#477e9d" stroke="white" stroke-width="2"/><circle cx="${xs}" cy="${y}" r="5" fill="#d48151" stroke="white" stroke-width="2"/><text x="${Math.min(310,xd+6)}" y="${Math.max(20,y-9)}" font-size="9" fill="#477e9d">Qd ${fmt(qd)}</text><text x="${Math.min(310,xs+6)}" y="${Math.min(220,y+13)}" font-size="9" fill="#b56b40">Qs ${fmt(qs)}</text><text x="46" y="${Math.max(14,y-6)}" font-size="9" fill="#17343a">P ${fmt(p)}</text><text x="45" y="230" font-size="9" fill="#718082">0</text><text x="316" y="230" font-size="9" fill="#718082">Q</text><text x="278" y="32" font-size="10" fill="#477e9d" font-weight="700">D</text><text x="278" y="58" font-size="10" fill="#d48151" font-weight="700">S</text>`;
+}
+$('marketPrice').addEventListener('input',marketUpdate);marketUpdate();
+
+// Demand/supply curve shift simulator
+const shiftInfo={
+ normal:{title:'Kondisi awal',p:'Tetap',q:'Tetap',text:'Pada kondisi awal, permintaan dan penawaran bertemu di satu titik keseimbangan.',dx:0,sx:0},
+ demandRight:{title:'Permintaan naik',p:'Naik',q:'Naik',text:'Contoh: tren produk menjadi viral atau pendapatan konsumen naik untuk barang normal. Kurva permintaan bergeser ke kanan. Harga dan jumlah keseimbangan naik.',dx:34,sx:0},
+ demandLeft:{title:'Permintaan turun',p:'Turun',q:'Turun',text:'Contoh: selera berubah atau konsumen kehilangan kepercayaan pada produk. Kurva permintaan bergeser ke kiri. Harga dan jumlah keseimbangan turun.',dx:-34,sx:0},
+ supplyRight:{title:'Penawaran naik',p:'Turun',q:'Naik',text:'Contoh: teknologi membuat produksi lebih murah atau panen melimpah. Kurva penawaran bergeser ke kanan. Harga keseimbangan turun dan jumlah naik.',dx:0,sx:34},
+ supplyLeft:{title:'Penawaran turun',p:'Naik',q:'Turun',text:'Contoh: harga bahan baku naik atau gagal panen. Kurva penawaran bergeser ke kiri. Harga keseimbangan naik dan jumlah turun.',dx:0,sx:-34}
+};
+function shiftUpdate(mode='normal'){const v=shiftInfo[mode];$('shiftPrice').textContent=v.p;$('shiftQty').textContent=v.q;$('shiftExplain').innerHTML=`<strong>${v.title}.</strong> ${v.text}`;document.querySelectorAll('[data-shift]').forEach(b=>b.classList.toggle('active',b.dataset.shift===mode));const baseD=[[72,28],[300,202]],baseS=[[72,202],[300,28]],newD=baseD.map(([x,y])=>[x+v.dx,y]),newS=baseS.map(([x,y])=>[x+v.sx,y]);const ex=186+(v.dx+v.sx)/2,ey=115+(v.sx-v.dx)*.45;$('shiftGraph').innerHTML=`<path d="M42 18V218H338" fill="none" stroke="#dfe4dd"/><path d="M42 68H338M42 118H338M42 168H338" stroke="#e8ebe5" stroke-dasharray="3 5"/>${poly(baseD,'#c7d2d0',2)}${poly(baseS,'#c7d2d0',2)}${poly(newD,mode.startsWith('demand')?'#477e9d':'#8fa7a4',3.5)}${poly(newS,mode.startsWith('supply')?'#d48151':'#c49a7d',3.5)}<path d="M42 ${ey}H${ex}V218" stroke="#17343a" stroke-dasharray="4 4" fill="none"/><circle cx="${ex}" cy="${ey}" r="5" fill="#17343a" stroke="white" stroke-width="2"/><text x="${Math.min(305,newD[0][0]+7)}" y="${Math.max(19,newD[0][1]-8)}" font-size="9" fill="#477e9d">D</text><text x="${Math.min(305,newS[1][0]+5)}" y="${Math.max(20,newS[1][1]-8)}" font-size="9" fill="#b56b40">S</text><text x="${ex+8}" y="${ey-8}" font-size="9" fill="#17343a">E baru</text><text x="8" y="15" font-size="9" fill="#718082">Harga (P)</text><text x="318" y="238" font-size="9" fill="#718082">Jumlah (Q)</text>`;}
+document.querySelectorAll('[data-shift]').forEach(b=>b.addEventListener('click',()=>shiftUpdate(b.dataset.shift)));shiftUpdate();
+
+// Equilibrium calculator
+function eqCalc(){const c=+$('eqC').value,d=+$('eqD').value,m=+$('eqM').value,n=+$('eqN').value,den=d+n;if(![c,d,m,n].every(Number.isFinite)||den===0){$('eqExplain').textContent='Periksa input. Nilai d + n tidak boleh nol.';return;}const p=(c+m)/den,q=c-d*p,qs=-m+n*p;$('eqP').textContent=fmt(p,2);$('eqQ').textContent=fmt(q,2);$('eqExplain').textContent=`Cek: Qd = ${fmt(q,2)} dan Qs = ${fmt(qs,2)}. ${q>=0&&p>=0?'Keduanya sama, sehingga titik keseimbangan valid.':'Periksa kembali angka; hasil harga atau jumlah negatif tidak masuk akal untuk contoh pasar ini.'}`;}
+$('eqCalc').onclick=eqCalc;$('eqReset').onclick=()=>{[['eqC',100],['eqD',2],['eqM',20],['eqN',4]].forEach(([id,v])=>$(id).value=v);eqCalc();};eqCalc();
+
+// Surplus graph and calculator
+let surplusMode='both';
+function drawSurplus(){const showSK=surplusMode!=='sp',showSP=surplusMode!=='sk';const px=q=>42+q/30*292,py=p=>198-(p/110)*170;
+ const demand=[[px(0),py(100)],[px(30),py(40)]],supply=[[px(0),py(20)],[px(30),py(80)]];
+ $('surplusGraph').innerHTML=`${axes(360,230)}${showSK?`<polygon points="${px(0)},${py(100)} ${px(0)},${py(60)} ${px(20)},${py(60)}" fill="#477e9d" opacity=".2"/>`:''}${showSP?`<polygon points="${px(0)},${py(20)} ${px(20)},${py(60)} ${px(0)},${py(60)}" fill="#d48151" opacity=".22"/>`:''}${poly(demand,'#477e9d',3)}${poly(supply,'#d48151',3)}<path d="M${px(0)} ${py(60)}H${px(20)}V198" stroke="#17343a" stroke-dasharray="4 4" fill="none"/><circle cx="${px(20)}" cy="${py(60)}" r="5" fill="#17343a"/><text x="${px(9)}" y="${py(80)}" font-size="10" fill="#477e9d">SK</text><text x="${px(9)}" y="${py(35)}" font-size="10" fill="#b56b40">SP</text><text x="${px(20)+7}" y="${py(60)-8}" font-size="9" fill="#17343a">E</text><text x="8" y="20" font-size="9" fill="#718082">Harga</text><text x="318" y="220" font-size="9" fill="#718082">Q</text>`;
+}
+document.querySelectorAll('[data-surplus]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-surplus]').forEach(x=>x.classList.remove('active'));b.classList.add('active');surplusMode=b.dataset.surplus;drawSurplus();}));drawSurplus();
+function surplusCalc(){const a=+$('surA').value,b=+$('surB').value,c=+$('surC').value,d=+$('surD').value;const den=b+d;if(![a,b,c,d].every(Number.isFinite)||a<0||c<0||b<0||d<0||a<=c||den<=0){$('surExplain').textContent='Masukkan harga maksimum a > harga minimum c ≥ 0, serta kemiringan b dan d yang tidak negatif.';return;}const q=(a-c)/den,p=a-b*q,sk=.5*q*(a-p),sp=.5*q*(p-c);$('surQ').textContent=fmt(q,2);$('surP').textContent=fmt(p,2);$('surSK').textContent=fmt(sk,2);$('surSP').textContent=fmt(sp,2);$('surExplain').textContent=`Langkah: ${fmt(q,2)} = (${a} − ${c}) ÷ (${b} + ${d}). Pe = ${fmt(p,2)}. SK = ½ × ${fmt(q,2)} × (${a} − ${fmt(p,2)}) = ${fmt(sk,2)}. SP = ½ × ${fmt(q,2)} × (${fmt(p,2)} − ${c}) = ${fmt(sp,2)}. Total surplus = ${fmt(sk+sp,2)}.`;}
+$('surCalc').onclick=surplusCalc;$('surReset').onclick=()=>{[['surA',100],['surB',2],['surC',20],['surD',2]].forEach(([id,v])=>$(id).value=v);surplusCalc();};surplusCalc();
+
+// Elasticity calculator, explicitly separate start-value and midpoint methods
+let elasticMode='awal';
+document.querySelectorAll('[data-elastic]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-elastic]').forEach(x=>x.classList.remove('active'));b.classList.add('active');elasticMode=b.dataset.elastic;elasticCalc();}));
+function elasticCalc(){const p1=+$('eP1').value,p2=+$('eP2').value,q1=+$('eQ1').value,q2=+$('eQ2').value;if(![p1,p2,q1,q2].every(Number.isFinite)||p1<=0||p2<=0||q1<=0||q2<0||p1===p2||(elasticMode==='tengah'&&q1+q2===0)){$('elasticExplain').textContent='Masukkan harga awal dan akhir positif, jumlah awal positif, jumlah akhir tidak negatif, dan perubahan harga tidak nol.';return;}
+ let pctP,pctQ;if(elasticMode==='awal'){pctP=(p2-p1)/p1*100;pctQ=(q2-q1)/q1*100;$('elasticTitle').textContent='Metode nilai awal';$('elasticExplain').textContent='Pembagi adalah nilai awal. Metode ini mengikuti contoh beras pada foto kisi-kisi.';}else{pctP=(p2-p1)/((p1+p2)/2)*100;pctQ=(q2-q1)/((q1+q2)/2)*100;$('elasticTitle').textContent='Metode titik tengah';$('elasticExplain').textContent='Pembagi adalah rata-rata nilai awal dan akhir. Hasil dapat berbeda dari metode nilai awal, tetapi langkahnya konsisten saat arah perubahan dibalik.';}
+ const e=Math.abs(pctQ/pctP);$('ePctP').textContent=fmt(Math.abs(pctP),2)+'%';$('ePctQ').textContent=fmt(Math.abs(pctQ),2)+'%';const cls=e>1?'Elastis':Math.abs(e-1)<1e-8?'Elastis uniter':e===0?'Inelastis sempurna':'Inelastis';$('eResult').textContent=fmt(e,2)+' · '+cls;
+}
+$('elasticCalc').onclick=elasticCalc;$('elasticReset').onclick=()=>{[['eP1',12000],['eP2',15000],['eQ1',200],['eQ2',260]].forEach(([id,v])=>$(id).value=v);document.querySelectorAll('[data-elastic]').forEach(x=>x.classList.toggle('active',x.dataset.elastic==='awal'));elasticMode='awal';elasticCalc();};elasticCalc();
+
+// Utility graphs
+let utilityMode='tu';
+document.querySelectorAll('[data-utility]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-utility]').forEach(x=>x.classList.remove('active'));b.classList.add('active');utilityMode=b.dataset.utility;utilityUpdate();}));
+function utilityUpdate(){const qs=[1,2,3,4,5],vals=utilityMode==='tu'?[30,50,60,60,50]:[30,20,10,0,-10],max=utilityMode==='tu'?70:35,min=utilityMode==='tu'?0:-15;const x=q=>52+(q-1)/4*270,y=v=>190-(v-min)/(max-min)*155;let points=qs.map((q,i)=>[x(q),y(vals[i])]);let yAxis=`<path d="M42 20V190H338" fill="none" stroke="#dfe4dd"/><path d="M42 70H338M42 120H338M42 170H338" stroke="#e8ebe5" stroke-dasharray="3 5"/>`;let labels=qs.map((q)=>`<text x="${x(q)}" y="207" text-anchor="middle" font-size="9" fill="#718082">${q}</text>`).join('');let circles=points.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="4.5" fill="${utilityMode==='tu'?'#477e9d':'#d48151'}" stroke="white" stroke-width="2"/><text x="${p[0]}" y="${p[1]-9}" text-anchor="middle" font-size="9" fill="#485d60">${vals[i]}</text>`).join('');$('utilityGraph').innerHTML=`${yAxis}${poly(points,utilityMode==='tu'?'#477e9d':'#d48151',3)}${circles}${labels}<text x="7" y="15" font-size="9" fill="#718082">${utilityMode==='tu'?'TU':'MU'}</text><text x="323" y="219" font-size="9" fill="#718082">Q</text>`;$('utilityNote').textContent=utilityMode==='tu'?'TU mencapai maksimum 60 pada mangkuk ke-3 sampai ke-4. Setelah itu, konsumsi tambahan menurunkan kepuasan total.':'MU turun dari 30 menjadi -10. Ketika MU = 0, TU berada di titik maksimum.';}
+utilityUpdate();
+
+// Budget line / indifference curve
+function budgetUpdate(){const income=+$('income').value;const xOpt=income/20000,yOpt=2*xOpt;$('incomeOut').textContent=money(income);$('optX').textContent=fmt(xOpt,1);$('optY').textContent=fmt(yOpt,1);const sx=x=>42+x/12*292,sy=y=>194-y/24*168;let budget=[[sx(0),sy(income/5000)],[sx(income/10000),sy(0)]];let curve=[];for(let x=.5;x<=12;x+=.25){let y=72/x;if(y<=24)curve.push([sx(x),sy(y)]);}const pointX=sx(xOpt),pointY=sy(yOpt);$('budgetGraph').innerHTML=`<path d="M42 20V194H338" fill="none" stroke="#dfe4dd"/><path d="M42 110H338M42 55H338M115 20V194M188 20V194M261 20V194" stroke="#e8ebe5" stroke-dasharray="3 5"/><text x="8" y="15" font-size="9" fill="#718082">Barang Y</text><text x="319" y="216" font-size="9" fill="#718082">Barang X</text>${poly(curve,'#477e9d',3)}${poly(budget,'#d48151',3)}<circle cx="${pointX}" cy="${pointY}" r="5" fill="#17343a" stroke="white" stroke-width="2"/><text x="${pointX+7}" y="${pointY-7}" font-size="9" fill="#17343a">(${fmt(xOpt,1)}, ${fmt(yOpt,1)})</text><text x="48" y="207" font-size="8" fill="#718082">0</text>`;}
+$('income').addEventListener('input',budgetUpdate);budgetUpdate();
+
+// Cost calculator and chart
+function costCalc(){const fc=+$('fcInput').value,v=+$('vInput').value,q=+$('qInput').value,p=+$('priceInput').value;if(![fc,v,q,p].every(Number.isFinite)||fc<0||v<0||q<=0){$('costExplain').textContent='Masukkan FC dan v tidak negatif, serta Q lebih besar dari nol.';return;}const vc=v*q,tc=fc+vc,afc=fc/q,avc=vc/q,atc=tc/q,contribution=p-v,bep=contribution>0?fc/contribution:Infinity,profit=p*q-tc;$('vcOut').textContent=compactMoney(vc);$('tcOut').textContent=compactMoney(tc);$('afcOut').textContent=money(afc);$('avcOut').textContent=money(avc);$('atcOut').textContent=money(atc);$('mcOut').textContent=money(v);$('bepOut').textContent=Number.isFinite(bep)?fmt(Math.ceil(bep))+' unit':'Tidak tercapai';$('profitOut').textContent=(profit<0?'−':'')+compactMoney(Math.abs(profit));$('costExplain').textContent=Number.isFinite(bep)?`BEP = ${money(fc)} ÷ (${money(p)} − ${money(v)}) = ${fmt(bep,2)} unit. Jika unit harus bulat, minimal ${fmt(Math.ceil(bep))} unit. Laba/rugi pada Q dihitung sebagai (P × Q) − TC.`:'Harga jual harus lebih besar daripada biaya variabel per unit (P > v) agar BEP dapat dicapai.';}
+$('costCalc').onclick=costCalc;$('costReset').onclick=()=>{[['fcInput',100000000],['vInput',20000],['qInput',10000],['priceInput',50000]].forEach(([id,v])=>$(id).value=v);costCalc();};costCalc();
+function costGraphUpdate(){const q=+$('costQty').value,fc=100,vc=q*.02,tc=fc+vc;$('costQtyOut').textContent=fmt(q);$('graphVC').textContent='Rp'+fmt(vc,0)+' jt';$('graphTC').textContent='Rp'+fmt(tc,0)+' jt';const x=v=>42+v/10000*292,y=v=>190-v/320*160;let f=[[x(0),y(fc)],[x(10000),y(fc)]],v=[[x(0),y(0)],[x(10000),y(200)]],t=[[x(0),y(fc)],[x(10000),y(300)]];const cx=x(q),fy=y(fc),vy=y(vc),ty=y(tc);$('costGraph').innerHTML=`<path d="M42 20V190H338" fill="none" stroke="#dfe4dd"/><path d="M42 70H338M42 120H338M42 170H338" stroke="#e8ebe5" stroke-dasharray="3 5"/>${poly(f,'#477e9d',2.5)}${poly(v,'#d48151',2.5)}${poly(t,'#17343a',3)}<path d="M${cx} 190V${ty}" stroke="#9aa8a2" stroke-dasharray="3 4"/><circle cx="${cx}" cy="${ty}" r="4.5" fill="#17343a"/><text x="48" y="${fy-7}" font-size="9" fill="#477e9d">FC 100</text><text x="${Math.min(cx+5,315)}" y="${Math.max(vy-6,20)}" font-size="9" fill="#b56b40">VC ${fmt(vc,0)}</text><text x="${Math.min(cx+5,315)}" y="${Math.max(ty-7,20)}" font-size="9" fill="#17343a">TC ${fmt(tc,0)}</text><text x="8" y="14" font-size="9" fill="#718082">Rp juta</text><text x="317" y="214" font-size="9" fill="#718082">Q</text>`;}
+$('costQty').addEventListener('input',costGraphUpdate);costGraphUpdate();
+
+// Quiz with immediate feedback
+const quiz=[
+ {q:'Sumber daya terbatas sementara kebutuhan manusia tidak terbatas disebut ...',a:['Kelangkaan','Inflasi','Produktivitas','Keseimbangan'],c:0,e:'Kelangkaan (scarcity) terjadi ketika sumber daya yang tersedia tidak cukup untuk memenuhi semua kebutuhan atau keinginan.'},
+ {q:'Zhafira memilih iklan dan melepas peluang influencer Rp40 juta serta SEO Rp35 juta. Biaya peluangnya adalah ...',a:['Rp75 juta','Rp35 juta','Rp40 juta','Rp20 juta'],c:2,e:'Biaya peluang adalah alternatif terbaik yang ditinggalkan. Dari dua pilihan yang dilepas, potensi influencer Rp40 juta lebih tinggi.'},
+ {q:'Menurut hukum permintaan, ketika harga barang turun maka jumlah yang diminta cenderung ...',a:['Turun','Naik','Tetap selalu','Menjadi nol'],c:1,e:'Hubungan harga dan jumlah diminta berlawanan arah, dengan faktor lain dianggap tetap (ceteris paribus).'},
+ {q:'Pada harga Rp3.000, Qd = 600 dan Qs = 600. Kondisi pasar tersebut adalah ...',a:['Kelebihan penawaran','Kelebihan permintaan','Keseimbangan','Kelangkaan'],c:2,e:'Keseimbangan terjadi saat jumlah diminta sama dengan jumlah ditawarkan (Qd = Qs).'},
+ {q:'Harga naik 25% dan jumlah ditawarkan naik 30%. Berapa elastisitas penawaran?',a:['0,83','1,2','5','25'],c:1,e:'Es = % perubahan jumlah ditawarkan ÷ % perubahan harga = 30% ÷ 25% = 1,2. Karena lebih dari 1, penawaran elastis.'},
+ {q:'Setelah membaca ulasan teman, Rani memilih merek tertentu. Faktor non-ekonomi yang memengaruhi adalah ...',a:['Pendapatan','Harga barang','Faktor sosial','Biaya produksi'],c:2,e:'Teman atau kelompok referensi masuk faktor sosial dalam perilaku konsumen.'},
+ {q:'Jika FC = Rp100.000, biaya variabel per unit Rp20.000, dan harga jual Rp50.000, BEP unit adalah ...',a:['2 unit','3,33 unit','5 unit','10 unit'],c:1,e:'BEP = FC ÷ (P − v) = 100.000 ÷ (50.000 − 20.000) = 3,33 unit. Jika wajib bulat, perlu 4 unit.'},
+ {q:'Tambahan biaya total untuk memproduksi satu unit tambahan disebut ...',a:['AFC','AVC','ATC','MC'],c:3,e:'Marginal Cost (MC) mengukur tambahan biaya total akibat tambahan produksi.'}
+];let qi=0,score=0,answered=false;
+function renderQuiz(){const q=quiz[qi];$('quizCount').textContent=`Soal ${qi+1} dari ${quiz.length}`;$('quizScore').textContent='Skor: '+score;$('quizProgress').style.width=((qi+1)/quiz.length*100)+'%';$('questionText').textContent=q.q;$('choices').innerHTML=q.a.map((x,i)=>`<button class="choice" data-choice="${i}">${String.fromCharCode(65+i)}. ${esc(x)}</button>`).join('');$('feedback').className='feedback';$('feedback').textContent='';$('quizNext').disabled=true;$('quizNext').textContent=qi===quiz.length-1?'Lihat hasil':'Soal berikutnya →';answered=false;document.querySelectorAll('.choice').forEach(b=>b.onclick=()=>answerQuiz(+b.dataset.choice));}
+function answerQuiz(choice){if(answered)return;answered=true;const q=quiz[qi],correct=choice===q.c;if(correct)score++;document.querySelectorAll('.choice').forEach((b,i)=>{b.disabled=true;if(i===q.c)b.classList.add('correct');else if(i===choice)b.classList.add('wrong');});$('feedback').className='feedback show '+(correct?'good':'no');$('feedback').innerHTML=`<strong>${correct?'Benar!':'Belum tepat.'}</strong> ${esc(q.e)}`;$('quizScore').textContent='Skor: '+score;$('quizNext').disabled=false;}
+$('quizNext').onclick=()=>{if(!answered)return;if(qi<quiz.length-1){qi++;renderQuiz();}else{$('questionText').textContent=`Kuis selesai. Skor Anda ${score} dari ${quiz.length}.`; $('choices').innerHTML='';$('feedback').className='feedback show '+(score>=6?'good':'no');$('feedback').textContent=score>=6?'Bagus. Ulangi bagian yang masih terasa lambat agar lebih mantap.':'Tidak apa-apa. Baca kembali pembahasan, lalu ulangi kuis.';$('quizNext').disabled=true;$('quizNext').textContent='Selesai';$('quizCount').textContent='Hasil akhir';$('quizProgress').style.width='100%';}};
+$('quizReset').onclick=()=>{qi=0;score=0;renderQuiz();};renderQuiz();
+</script>
+</body>
+</html>
