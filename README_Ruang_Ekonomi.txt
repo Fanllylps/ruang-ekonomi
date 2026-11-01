@@ -11,7 +11,7 @@ Fitur:
 - Penjelasan konsep, contoh kasus, dan langkah hitungan.
 - Grafik permintaan-penawaran yang berubah saat harga digeser.
 - Kalkulator keseimbangan pasar, surplus, elastisitas, dan biaya produksi.
-- Grafik utilitas, kurva indiferen/garis anggaran, serta grafik biaya.
+- Simulasi pergeseran kurva dan grafik biaya produksi interaktif.
 - Kuis 8 soal dengan umpan balik dan penjelasan jawaban.
 
 Catatan:

@@ -5,7 +5,7 @@ Website belajar Pengantar Ekonomi untuk persiapan UTS. Situs statis satu berkas,
 ## Fitur
 
 - Materi Pengantar Ekonomi pertemuan 1–7 dan kuis 8 soal.
-- Grafik interaktif pasar, surplus, utilitas, garis anggaran, dan biaya produksi.
+- Grafik interaktif permintaan-penawaran, pergeseran kurva, surplus, dan biaya produksi.
 - Kalkulator keseimbangan, surplus, elastisitas (nilai awal dan titik tengah), serta biaya.
 - Tampilan responsif untuk ponsel dan desktop.
 
